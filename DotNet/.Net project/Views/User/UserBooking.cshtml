@@ -1,0 +1,112 @@
+@{
+    ViewBag.Title = "Book Diagnostic Service";
+}
+
+@model ServiceBookingModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/Content/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/_Net_project.styles.css" />
+    <title>@ViewBag.Title</title>
+        <style>
+        
+.container {
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: #d9534f;
+  margin-top: 10px;
+}
+    </style>
+
+    <div class="navbar-collapse collapse d-sm-flex justify-content-end align-items-center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+        </li>
+    </ul>
+</div>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Welcome, @Context.Session.GetString("UserName")</h1>
+    <h2>Book Diagnostic Service</h2>
+
+    <form method="post">
+        <label asp-for="PatientName">Patient Name:</label>
+        <input type="text" asp-for="PatientName" value="@Context.Session.GetString("UserName")" name="patientName" readonly/>
+
+        <label asp-for="PatientAge">Patient Age:</label>
+        <input type="number" asp-for="PatientAge" name="patientAge" required min="1" />
+
+        <label asp-for="DoctorName">Doctor's Name:</label>
+        <input type="text" asp-for="DoctorName" name="doctorName" required pattern="[A-Za-z]+" title="Only alphabetical characters are allowed." />
+
+        <label asp-for="ServiceType">Service Type:</label>
+        <select asp-for="ServiceType"name="serviceType" required>
+            <option value="MRI">MRI</option>
+            <option value="CT Scan">CT Scan</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="Blood Test">Blood Test</option>
+            <option value="Ultrasound">Ultrasound</option>
+        </select>
+
+        <label asp-for="PreferredDate">Preferred Date:</label>
+        <input type="date" asp-for="PreferredDate" name="preferredDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+        <label asp-for="PreferredTime">Preferred Time:</label>
+        <input type="time" asp-for="PreferredTime" name="preferredTime" required />
+
+        <p class="error-message">@ViewBag.ErrorMessage</p>
+        
+        <input type="submit" value="Book Service" />
+
+
+    </form>
+</div>
+
+
+</body>
+</html>

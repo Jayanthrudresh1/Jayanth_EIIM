@@ -1,0 +1,81 @@
+@{
+    ViewBag.Title = "Login";
+}
+
+@model LoginModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/Content/site.css" />
+    <title>Login</title>
+    <style>
+        
+.container {
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: #d9534f;
+  margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        @Html.ValidationSummary()
+
+                <form id="loginForm" method="post">
+            <label asp-for="Email">Email:</label>
+            <input type="email" asp-for="Email" required/>
+
+            <label asp-for="Password">Password:</label>
+            <input type="password" asp-for="Password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@$!%*?&])[A-Za-z\d@@$!%*?&]{8,}" title="Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."  />
+
+             <p class="error-message">@ViewBag.ErrorMessage</p>
+
+            <input type="submit" value="Login" />
+        </form>
+         <p>Not registered? <a href="@Url.Action("SignUp", "User")">Sign up here</a>.</p>
+    </div>
+
+</body>
+</html>
